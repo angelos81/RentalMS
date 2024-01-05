@@ -14,13 +14,13 @@ public class ReturnItem {
     private RentalItem rentalItem;
     private LocalDate returnDate;
 
-    public static ReturnItem createReturnedItem(RentalItem rentalItem) {
+    public static ReturnItem createReturnItem(RentalItem rentalItem) {
         return new ReturnItem(rentalItem, LocalDate.now());
     }
 
 
     // sampleCode
     public static ReturnItem sample() {
-        return ReturnItem.createReturnedItem(RentalItem.sample());
+        return ReturnItem.createReturnItem(RentalItem.sample());
     }
 }
