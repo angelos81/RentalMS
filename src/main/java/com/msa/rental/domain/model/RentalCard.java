@@ -34,7 +34,7 @@ public class RentalCard {
     }
 
     // 대여카드 생성
-    public RentalCard createRentalCard(IDName creator) {
+    public static RentalCard createRentalCard(IDName creator) {
         RentalCard rentalCard = new RentalCard();
         rentalCard.setRentalCardNo(RentalCardNo.createRentalCardNo());
         rentalCard.setMember(creator);
