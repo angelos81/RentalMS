@@ -25,7 +25,7 @@ public class RentalApplication {
         showCardStatus(sampleCard);
 
         Item sample1 = new Item(1, "도서1");
-        Item sample2 = new Item(2, "도서2 " );
+        Item sample2 = new Item(2, "도서2");
 
         rentAndShowStatus(sampleCard, sample1);
         rentAndShowStatus(sampleCard, sample2);
