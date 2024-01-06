@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ClearOverdueInfoDTO {
-    public String UserId;
-    public String UserNm;
+    public String userId;
+    public String userNm;
     public Integer point;
 }
