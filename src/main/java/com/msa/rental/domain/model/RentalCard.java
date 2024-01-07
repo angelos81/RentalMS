@@ -1,5 +1,8 @@
 package com.msa.rental.domain.model;
 
+import com.msa.rental.domain.model.event.ItemRented;
+import com.msa.rental.domain.model.event.ItemReturned;
+import com.msa.rental.domain.model.event.OverdueCleared;
 import com.msa.rental.domain.model.vo.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -125,8 +128,15 @@ public class RentalCard {
         return this.getLateFee().getPoint();
     }
 
-
-
+    public static ItemRented createItemRentedEvent(IDName idName,Item item,long point) {
+        return new ItemRented(idName,item,point);
+    }
+    public static ItemReturned createItemReturnEvent(IDName idName,Item item,long point) {
+        return new ItemReturned(idName,item,point);
+    }
+    public static OverdueCleared createOverdueCleardEvent(IDName idName,long point) {
+        return new OverdueCleared(idName,point);
+    }
 
 
     // sampleCode
