@@ -14,7 +14,7 @@ public class RentalApplication {
     public static void main(String[] args) throws Exception {
 
         // test
-        domainTest();
+        //domainTest();
 
         SpringApplication.run(RentalApplication.class, args);
     }

@@ -33,14 +33,14 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-  producers:
-    bootstrap-servers: localhost:9092
-    topic1:
-      name: rental_rent
-    topic2:
-      name: rental_return
-    topic3:
-      name: overdue_clear
+producers:
+  bootstrap-servers: localhost:9092
+  topic1:
+    name: rental_rent
+  topic2:
+    name: rental_return
+  topic3:
+    name: overdue_clear
 
 server:
   port: 8081
