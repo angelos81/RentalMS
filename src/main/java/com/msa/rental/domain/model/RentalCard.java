@@ -7,6 +7,7 @@ import com.msa.rental.domain.model.vo.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.boot.jaxb.mapping.internal.InheritanceTypeMarshalling;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -45,6 +46,9 @@ public class RentalCard {
     private void removeRentalItem(RentalItem rentalItem) {
         this.rentalItemList.remove(rentalItem);
     }
+    private void removeReturnItem(ReturnItem returnItem) {
+        this.returnItemList.remove(returnItem);
+    }
 
     private void addReturnItem(ReturnItem returnItem) {
         this.returnItemList.add(returnItem);
@@ -68,6 +72,16 @@ public class RentalCard {
         return this;
     }
 
+    // 대여처리 취소(보상 트랜잭션)
+    public RentalCard cancelRentItem(Item item) {
+        RentalItem rentalItem = this.rentalItemList.stream().filter(i -> i.getItem().equals(item)).findFirst().get();
+
+        // rentalItemList에서 찾아서 삭제처리
+        this.removeRentalItem(rentalItem);
+
+        return this;
+    }
+
     private void checkRentalAvailable() {
         if (this.rentStatus == RentStatus.RENT_UNAVAILABLE) {
             throw new IllegalArgumentException("대여불가상태입니다.");
@@ -85,6 +99,19 @@ public class RentalCard {
 
         this.addReturnItem(ReturnItem.createReturnItem(rentalItem));
         this.removeRentalItem(rentalItem);
+        return this;
+    }
+
+    // 반납처리 취소 (보상 트랜잭션)
+    public RentalCard cancelReturnItem(Item item, long point) {
+        ReturnItem returnItem = this.returnItemList.stream().filter(i -> i.getRentalItem().getItem().equals(item)).findFirst().get();
+
+        // returnItem에 있는 rentalItem을 다시 넣어줌
+        this.addRentalItem(returnItem.getRentalItem());
+
+        // 기존 returnItemList에서 제거
+        this.removeReturnItem(returnItem);
+
         return this;
     }
 
@@ -127,6 +154,17 @@ public class RentalCard {
 
         return this.getLateFee().getPoint();
     }
+
+    // 연체해제 취소 (보상 트랜잭션)
+    public long cancelMakeAvailableRental(long point) {
+        this.setLateFee(this.lateFee.addPoint(point));
+
+        //this.setRentStatus(RentStatus.RENT_AVAILABLE);
+        this.rentStatus = RentStatus.RENT_AVAILABLE;
+
+        return this.lateFee.getPoint();
+    }
+
 
     public static ItemRented createItemRentedEvent(IDName idName,Item item,long point) {
         return new ItemRented(idName,item,point);
