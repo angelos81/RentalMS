@@ -6,9 +6,9 @@ import com.msa.rental.domain.model.event.ItemReturned;
 import com.msa.rental.domain.model.event.OverdueCleared;
 
 public interface EventOutputPort {
-    public void occurRentalEvent(ItemRented rentalItemEvent) throws JsonProcessingException;
+    public void occurRentalEvent(ItemRented itemRented) throws JsonProcessingException;
 
-    public void occurReturnEvent(ItemReturned itemReturnedEvent) throws JsonProcessingException;
+    public void occurReturnEvent(ItemReturned itemReturned) throws JsonProcessingException;
 
     public void occurOverdueClearedEvent(OverdueCleared overdueCleared) throws JsonProcessingException;
 }
