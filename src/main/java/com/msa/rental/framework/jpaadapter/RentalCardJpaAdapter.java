@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class RentalCardJapAdapter implements RentalCardOutputPort {
+public class RentalCardJpaAdapter implements RentalCardOutputPort {
 
     private final RentalCardRepository rentalCardRepository;
 
